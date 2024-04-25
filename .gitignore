@@ -164,3 +164,6 @@ cython_debug/
 
 # Remove testfiles
 test.py
+
+# Remove models
+yolov8n.pt
