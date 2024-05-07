@@ -7,6 +7,8 @@ authors = [
 ]
 dependencies = [
     "pip>=24.0",
+    "opencv-python>=4.9.0.80",
+    "ultralytics>=8.2.10",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
