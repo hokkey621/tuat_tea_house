@@ -21,7 +21,7 @@
 
 ```bash
 git clone https://github.com/hokkey621/tuat_tea_house.git
-cd tuat_tea_house
+cd src/tuat_tea_house
 python main.py
 ```
 
