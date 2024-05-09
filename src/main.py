@@ -1,9 +1,9 @@
-import detectobject
+import showbb
 
 
 def main():
     print("start program")
-    detectobject.detect()
+    showbb.detect()
     print("end program")
     
     

@@ -14,7 +14,7 @@ def detect():
             if not ret:
                 print("フレームが読み込めません。")
                 break
-            results = model(frame, show=True)  # モデルでフレームを処理
+            results = model(frame, show=True) # モデルでフレームを処理
             if cv2.waitKey(1) == ord('q'):  # 'q' を押すと終了
                 break
 
