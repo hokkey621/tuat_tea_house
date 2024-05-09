@@ -1,9 +1,9 @@
-import showbb
+import detect
 
 
 def main():
     print("start program")
-    showbb.detect()
+    detect.showbb()
     print("end program")
     
     
