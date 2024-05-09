@@ -168,3 +168,6 @@ test.py
 
 # Remove models
 yolov8n.pt
+
+# Remove 
+src/config.py
