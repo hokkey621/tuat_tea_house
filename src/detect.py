@@ -1,18 +1,9 @@
 import cv2
 from ultralytics import YOLO
+import time
 
 
-def init() -> tuple[YOLO, cv2.VideoCapture]:
-    model: YOLO = YOLO("yolov8n.pt")  # モデルをロード
-    cap: cv2.VideoCapture = cv2.VideoCapture(0)  # カメラデバイスを開く
-
-    if not cap.isOpened():
-        print("カメラが開けません。")
-
-    return model, cap
-
-
-def showbb() -> None:
+def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
     """
     モデルとビデオキャプチャを使用してリアルタイムで境界ボックスを表示します。
 
@@ -23,18 +14,49 @@ def showbb() -> None:
     Returns:
         None
     """
-    # 初期化
-    model, cap = init()
+    ret, frame = cap.read()
+    if not ret:
+        print("フレームが読み込めません。")
+        return
+    results = model(frame, show=True) # モデルでフレームを処理
     
-    # リアルタイムでバウンディングボックスを表示
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("フレームが読み込めません。")
-            break
-        results = model(frame, show=True) # モデルでフレームを処理
-        if cv2.waitKey(1) == ord('q'):  # 'q'を押して終了
-            break
 
-    cap.release()  # カメラデバイスを解放
-    cv2.destroyAllWindows()  # 全てのOpenCVウィンドウを閉じる
+def detect_objects(model, cap) -> bool:
+    """
+    Detects objects in frames using the YOLOv8 model.
+
+    Args:
+        model: The YOLOv8 model used for object detection.
+        cap: The video capture object used to read frames.
+
+    Returns:
+        bool: True if any of the specified objects ('wine glass', 'cup', 'bowl') are detected, False otherwise.
+    """
+    # フレームを読み込む
+    ret, frame = cap.read()
+    if not ret:
+        print("フレームが読み込めません。")
+        return
+    
+    # フレームをYOLOv8モデルに渡して検出を実行
+    results = model(frame)
+    
+    # 検出されたオブジェクトのクラスIDとラベルを取得
+    object_exists = False
+    for result in results:
+        for box in result.boxes:
+            class_id = int(box.cls)
+            label = model.names[class_id]
+            
+            # 検出するオブジェクトのラベルを変更
+            if label in ['wine glass', 'cup', 'bowl']:
+                object_exists = True
+                break
+        if object_exists:
+            break
+    
+    # フレームをウィンドウに表示
+    cv2.imshow('YOLOv8 Real-Time Object Detection', frame)
+    
+    # 存在するかどうかを返す
+    return True if object_exists else False
