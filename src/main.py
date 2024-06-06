@@ -17,10 +17,10 @@ def main():
     print("start program")
     model, cap = init()
     while(True):
-        if detect.detect_objects(model=model, cap=cap):
-            print('OK')
+       	if detect.detect_objects(model=model, cap=cap):
+            print('\033[32m' +'OK' + '\033[0m')
         else:
-            print('NG')
+            print('\033[31m' + 'NG' + '\033[0m')
         time.sleep(0.5)
     cap.release()  # カメラデバイスを解放
     cv2.destroyAllWindows()  # 全てのOpenCVウィンドウを閉じる
