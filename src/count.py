@@ -1,6 +1,6 @@
 import cv2
 
-def calculate_area_ratios(cap, view):
+def calculate_area_ratios(cap: cv2.VideoCapture, view: bool) -> float:
     # フレームを読み込む
     ret, frame = cap.read()
     if not ret:
@@ -8,7 +8,7 @@ def calculate_area_ratios(cap, view):
     # グレースケール変換
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Otsuの方法で二値化
-    ret, img_th = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    _, img_th = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     # 全体の画素数
     whole_area = img_th.size
     # 白部分の画素数
