@@ -171,3 +171,8 @@ yolov8n.pt
 
 # Remove 
 src/config.py
+
+# Remove opencommit modules
+src/node_modules
+src/package.json
+src/pnpm-lock.yaml
