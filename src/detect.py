@@ -21,7 +21,7 @@ def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
     results = model(frame, show=True) # モデルでフレームを処理
     
 
-def detect_objects(model, cap) -> bool:
+def detect_objects(model, cap, view) -> bool:
     """
     Detects objects in frames using the YOLOv8 model.
 
@@ -55,8 +55,9 @@ def detect_objects(model, cap) -> bool:
         if object_exists:
             break
     
-    # フレームをウィンドウに表示
-    cv2.imshow('YOLOv8 Real-Time Object Detection', frame)
-    
+    if view:
+        # フレームをウィンドウに表示
+        cv2.imshow('YOLOv8 Real-Time Object Detection', frame)
+        
     # 存在するかどうかを返す
     return True if object_exists else False
