@@ -1,8 +1,10 @@
+import asyncio
 import cv2
 from ultralytics import YOLO
 import detect
 import time
 from count import calculate_area_ratios
+
 
 def init() -> tuple[YOLO, cv2.VideoCapture]:
     model: YOLO = YOLO("yolov8n.pt")  # モデルをロード
@@ -13,15 +15,15 @@ def init() -> tuple[YOLO, cv2.VideoCapture]:
 
     return model, cap
 
+
 def main():
-    print("start program")
     # モデルとカメラデバイスを初期化
     model, cap = init()
     while True:
         # コップがあるかどうかを検出
-        is_object_exist = detect.detect_objects(model=model, cap=cap, view=True)
+        is_object_exist = asyncio.run(detect.detect_objects(model=model, cap=cap, view=False))
         # 白面積の割合を計算
-        white_ratio = calculate_area_ratios(cap=cap, view=False)
+        white_ratio = asyncio.run(calculate_area_ratios(cap=cap, view=False))
         
         # 結果を出力
         print(is_object_exist, white_ratio)
@@ -35,6 +37,7 @@ def main():
     # リソースを解放
     cap.release()
     cv2.destroyAllWindows()
+
 
 if __name__ == "__main__":
     main()

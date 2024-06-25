@@ -1,9 +1,10 @@
+import asyncio
 import cv2
 from ultralytics import YOLO
 import time
 
 
-def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
+async def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
     """
     モデルとビデオキャプチャを使用してリアルタイムで境界ボックスを表示します。
 
@@ -21,7 +22,7 @@ def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
     results = model(frame, show=True) # モデルでフレームを処理
     
 
-def detect_objects(model, cap, view) -> bool:
+async def detect_objects(model, cap, view) -> bool:
     """
     Detects objects in frames using the YOLOv8 model.
 
