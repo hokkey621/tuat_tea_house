@@ -1,9 +1,10 @@
+import asyncio
 import cv2
 from ultralytics import YOLO
 import time
 
 
-def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
+async def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
     """
     モデルとビデオキャプチャを使用してリアルタイムで境界ボックスを表示します。
 
@@ -21,7 +22,7 @@ def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
     results = model(frame, show=True) # モデルでフレームを処理
     
 
-def detect_objects(model, cap) -> bool:
+async def detect_objects(model, cap, view) -> bool:
     """
     Detects objects in frames using the YOLOv8 model.
 
@@ -39,7 +40,7 @@ def detect_objects(model, cap) -> bool:
         return
     
     # フレームをYOLOv8モデルに渡して検出を実行
-    results = model(frame)
+    results = model(frame, conf=0.25)
     
     # 検出されたオブジェクトのクラスIDとラベルを取得
     object_exists = False
@@ -48,15 +49,16 @@ def detect_objects(model, cap) -> bool:
             class_id = int(box.cls)
             label = model.names[class_id]
             
-            # 検出するオブジェクトのラベルを変更
-            if label in ['wine glass', 'cup', 'bowl']:
+            # 検出するオブジェクトのラベルが含まれているかどうかを確認
+            if label in 'cup':
                 object_exists = True
                 break
         if object_exists:
             break
     
-    # フレームをウィンドウに表示
-    cv2.imshow('YOLOv8 Real-Time Object Detection', frame)
-    
+    if view:
+        # フレームをウィンドウに表示
+        cv2.imshow('YOLOv8 Real-Time Object Detection', frame)
+        
     # 存在するかどうかを返す
     return True if object_exists else False
