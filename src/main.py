@@ -23,7 +23,7 @@ def main():
         # コップがあるかどうかを検出
         is_object_exist = asyncio.run(detect.detect_objects(model=model, cap=cap, view=False))
         # 白面積の割合を計算
-        white_ratio = asyncio.run(calculate_area_ratios(cap=cap, view=False))
+        white_ratio = asyncio.run(calculate_area_ratios(cap=cap, view=True))
         
         # 結果を出力
         print(is_object_exist, white_ratio)

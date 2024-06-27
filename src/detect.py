@@ -40,7 +40,7 @@ async def detect_objects(model, cap, view) -> bool:
         return
     
     # フレームをYOLOv8モデルに渡して検出を実行
-    results = model(frame)
+    results = model(frame, conf=0.25)
     
     # 検出されたオブジェクトのクラスIDとラベルを取得
     object_exists = False
@@ -49,8 +49,8 @@ async def detect_objects(model, cap, view) -> bool:
             class_id = int(box.cls)
             label = model.names[class_id]
             
-            # 検出するオブジェクトのラベルを変更
-            if label in ['wine glass', 'cup', 'bowl']:
+            # 検出するオブジェクトのラベルが含まれているかどうかを確認
+            if label in 'cup':
                 object_exists = True
                 break
         if object_exists:
