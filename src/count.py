@@ -1,6 +1,8 @@
+import asyncio
 import cv2
 
-def calculate_area_ratios(cap: cv2.VideoCapture, view: bool) -> float:
+
+async def calculate_area_ratios(cap: cv2.VideoCapture, view: bool) -> float:
     # フレームを読み込む
     ret, frame = cap.read()
     if not ret:
