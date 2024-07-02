@@ -1,12 +1,16 @@
 import cv2
 
-def play_video(file_path):
+def play_video(file_path: str) -> None:
     # 動画ファイルを読み込む
     cap = cv2.VideoCapture(file_path)
 
     if not cap.isOpened():
         print("Error: Could not open video file.")
         return
+    
+    # ウィンドウを作成し、全画面表示に設定
+    cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
+    cv2.setWindowProperty('Video', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
     while cap.isOpened():
         # フレームを一つずつ読み込む
@@ -26,7 +30,3 @@ def play_video(file_path):
     # リソースを解放する
     cap.release()
     cv2.destroyAllWindows()
-
-# ビデオファイルのパスを指定する
-video_file_path = 'path/to/your/video.mp4'
-play_video(video_file_path)
