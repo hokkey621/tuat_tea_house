@@ -16,6 +16,8 @@ contourpy==1.2.1
     # via matplotlib
 cycler==0.12.1
     # via matplotlib
+engineering-notation==0.10.0
+    # via tk-tools
 filelock==3.14.0
     # via torch
 fonttools==4.51.0
@@ -84,6 +86,8 @@ sympy==1.12
     # via torch
 thop==0.1.1.post2209072238
     # via ultralytics
+tk-tools==0.16.0
+    # via tuat-tea-house
 torch==2.3.0
     # via thop
     # via torchvision
