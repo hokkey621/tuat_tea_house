@@ -3,7 +3,9 @@ import cv2
 from ultralytics import YOLO
 import detect
 import time
+
 from count import calculate_area_ratios
+from showvideo import play_video
 
 
 def init() -> tuple[YOLO, cv2.VideoCapture]:
@@ -19,6 +21,8 @@ def init() -> tuple[YOLO, cv2.VideoCapture]:
 def main():
     # モデルとカメラデバイスを初期化
     model, cap = init()
+    detected = False
+    
     while True:
         # コップがあるかどうかを検出
         is_object_exist = asyncio.run(detect.detect_objects(model=model, cap=cap, view=False))
@@ -27,6 +31,24 @@ def main():
         
         # 結果を出力
         print(is_object_exist, white_ratio)
+        
+        if not is_object_exist:
+            # コップがない場合は、動画を再生しない
+            continue
+        
+        if white_ratio > 20:
+            # 満開の桜の動画を再生
+            play_video('../movies/' + 'fullbloom.mov')
+            detected = True
+        elif white_ratio > 10:
+            # 半開の桜の動画を再生
+            play_video('../movies/' + 'scattering.mov')
+            detected = True
+        else:
+            if detected:
+                # 散るさくらの動画を再生
+                play_video('../movies/' + 'scattered.mov')
+                detected = False
 
         # 'q'キーが押されたら終了
         if cv2.waitKey(1) & 0xFF == ord('q'):
