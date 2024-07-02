@@ -22,11 +22,3 @@ def play_video(file_path: str) -> None:
 
         # フレームを表示する
         cv2.imshow('Video', frame)
-
-        # 'q'キーが押されたらループを終了する
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
-
-    # リソースを解放する
-    cap.release()
-    cv2.destroyAllWindows()
