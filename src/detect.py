@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import time
 
 
-async def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
+def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
     """
     モデルとビデオキャプチャを使用してリアルタイムで境界ボックスを表示します。
 
@@ -50,7 +50,7 @@ async def detect_objects(model, cap, view) -> bool:
             label = model.names[class_id]
             
             # 検出するオブジェクトのラベルが含まれているかどうかを確認
-            if label in 'cup':
+            if label in ['cup', 'bowl', 'toilet']:
                 object_exists = True
                 break
         if object_exists:
