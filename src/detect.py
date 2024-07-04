@@ -1,7 +1,6 @@
 import asyncio
 import cv2
 from ultralytics import YOLO
-import time
 
 
 def showbb(model: YOLO, cap: cv2.VideoCapture) -> None:
