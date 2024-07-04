@@ -3,6 +3,16 @@ import cv2
 
 
 async def calculate_area_ratios(cap: cv2.VideoCapture, view: bool) -> float:
+    """
+    Calculates the ratio of white area to the whole area in a frame.
+
+    Args:
+        cap (cv2.VideoCapture): The video capture object.
+        view (bool): Whether to display the frame and binary image.
+
+    Returns:
+        float: The ratio of white area to the whole area in percentage.
+    """
     # フレームを読み込む
     ret, frame = cap.read()
     if not ret:
