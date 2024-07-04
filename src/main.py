@@ -24,7 +24,7 @@ def main():
     
     while True:
         # コップがあるかどうかを検出
-        is_object_exist = asyncio.run(detect_objects(model=model, cap=cap, view=False))
+        is_object_exist = asyncio.run(detect_objects(model=model, cap=cap, view=True))
         # 白面積の割合を計算
         white_ratio = asyncio.run(calculate_area_ratios(cap=cap, view=False))
         
@@ -35,7 +35,7 @@ def main():
             print("\033[91m", is_object_exist, white_ratio, "\033[0m")  # Red color for False
             continue # Skip the rest of the loop
         
-        if white_ratio > 40:
+        if white_ratio > 30:
             # 満開の桜の動画を再生
             play_video('../movies/fullbloom.mov')
             detected = True
