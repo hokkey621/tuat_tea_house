@@ -4,7 +4,8 @@
 `tuat_tea_house`は，画像認識技術（YOLO V8 & Open CV）を用いて，飲み物が入ったコップにプロジェクタ動画を投影するプログラムです．このプロジェクトは，チームラボのEN TEA HOUSEに触発されて開発しました．
 
 ## デモ
-準備中
+
+https://github.com/hokkey621/tuat_tea_house/assets/70475604/ff8e2fe4-01e6-4f0e-a494-e3d321879fc7
 
 ## 特徴
 - **画像認識技術の利用**: YOLO V8とOpenCVを組み合わせて，リアルタイムでコップに最適な画像を投影します．
